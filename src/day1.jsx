@@ -1,5 +1,5 @@
 function App() {
-  const name = "Revati";
+  const name = "Aditi";
 
   return (
     <div>

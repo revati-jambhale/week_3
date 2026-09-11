@@ -1,4 +1,5 @@
 import { useState } from "react"
+import TaskList from "./TaskList"
 
 function App() {
   const [task, setTask] = useState("")
@@ -7,12 +8,28 @@ function App() {
   function addTask() {
     if (task.trim() === "") return
 
-    setTasks([...tasks, task])
+    const newTask = {
+      id: Date.now(),
+      text: task,
+      completed: false
+    }
+
+    setTasks([...tasks, newTask])
     setTask("")
   }
 
-  function deleteTask(index) {
-    setTasks(tasks.filter((_, i) => i !== index))
+  function toggleTask(id) {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id
+          ? { ...task, completed: !task.completed }
+          : task
+      )
+    )
+  }
+
+  function deleteTask(id) {
+    setTasks(tasks.filter((task) => task.id !== id))
   }
 
   return (
@@ -40,23 +57,13 @@ function App() {
           </button>
         </div>
 
-        <ul className="mt-5">
-          {tasks.map((item, index) => (
-            <li
-              key={index}
-              className="flex justify-between bg-gray-100 p-3 mb-2 rounded-lg"
-            >
-              <span>{item}</span>
-
-              <button
-                onClick={() => deleteTask(index)}
-                className="text-red-500 font-bold"
-              >
-                Delete
-              </button>
-            </li>
-          ))}
-        </ul>
+        <div className="mt-5">
+          <TaskList
+            tasks={tasks}
+            toggleTask={toggleTask}
+            deleteTask={deleteTask}
+          />
+        </div>
 
       </div>
     </div>

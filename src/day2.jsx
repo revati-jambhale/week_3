@@ -6,7 +6,7 @@ function Day2() {
   return (
     <div>
       <h1>Day 2: Components and Props</h1>
-      <Welcome name="Revati" />
+      <Welcome name="Aditi" />
       <Welcome name="React Student" />
     </div>
   );
